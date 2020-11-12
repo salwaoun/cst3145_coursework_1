@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <script src="activities.js"></script>
 </head>
 <body>
@@ -20,9 +21,9 @@
             <div v-for="activity in activities">
                 <img style="max-height: 15em" v-bind:src="activity.image"/>
                 <h2 v-text="activity.title"></h2>
-                <p v-html="activity.location"></p>
-                <p>Price: {{activity.price}}</p>
-                <p>Available stock: {{activity.spaces}}</p>
+                <p>Location: {{activity.location}}</p>
+                <p>Price: {{activity.price}} AED</p>
+                <p>Available spaces: {{activity.spaces}}</p>
                 <span>
                 <span v-for="n in activity.rating"><i class="fas fa-star"></i></span>
                 <span v-for="n in 5-activity.rating"><i class="far fa-star"></i></span>
