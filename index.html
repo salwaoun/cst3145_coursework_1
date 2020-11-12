@@ -11,25 +11,32 @@
 </head>
 <body>
     <h1>After School Activities Catalog</h1>
-    <main id="app">
-        <sidebar>
-            <h2>Sort</h2>
-            <input type="radio" @click="sortPriceA"> Price Ascending <br>
-            <input type="radio" @click="sortPriceD">Price Descending
-        </sidebar>
-        <div v-if="showActivity">
+    <main id="app" style="display: grid; grid-template-columns: 1fr 2fr;">
+        <div style="display:inline-block">
+            <h2>Sort By:</h2>
+            <input name="attribute" type="radio" @click=""><label>Title</label><br>
+            <input name="attribute" type="radio" @click=""> <label>Price</label><br>
+            <input name="attribute" type="radio" @click=""><label>Location</label><br>
+            <input name="attribute" type="radio" @click=""><label>Spaces</label><br><br>
+            <input name="direction" type="radio" @click=""><label>Ascending</label><br>
+            <input name="direction" type="radio" @click=""><label>Descending</label>
+        </div>
+        <div style="display: inline-block;" v-if="showActivity">
             <div v-for="activity in activities">
                 <img style="max-height: 15em" v-bind:src="activity.image"/>
                 <h2 v-text="activity.title"></h2>
                 <p>Location: {{activity.location}}</p>
                 <p>Price: {{activity.price}} AED</p>
-                <p>Available spaces: {{activity.spaces}}</p>
+                <p>Available spaces: {{activity.spaces-cartCount(activity.id)}}</p>
                 <span>
                 <span v-for="n in activity.rating"><i class="fas fa-star"></i></span>
                 <span v-for="n in 5-activity.rating"><i class="far fa-star"></i></span>
                 </span>
-                <button @click="addToCart(activity)">Add To Cart</button>
-                Only {{activity.spaces}} left!</span>
+                <button @click="addToCart(activity)" v-if="canAddToCart(activity)">Add To Cart</button>
+                <button disabled="disabled" v-else>Add To Cart</button>
+                <span v-if="activity.spaces === cartCount(activity.id)">All Out!</span>
+                <span v-else-if="activity.spaces - cartCount(activity.id) < 5">
+                Only {{activity.spaces - cartCount(activity.id)}} left!</span>
             </div>
         </div>
     </main>
@@ -46,14 +53,18 @@
             addToCart(activity){
                 console.log(activity.id + " "+ activity.title+" was added to the cart!");//for debugging purposes
                 this.cart.push(activity.id);
-                activity.spaces-=1;
             },
-            
-            sortPriceA: function(){
-                this.activities.sort((a,b)=> a.price>b.price? 1:-1);
+            canAddToCart: function (activity) {
+                return activity.spaces > this.cartCount(activity.id);
             },
-            sortPriceD: function(){
-                this.activities.sort((a,b)=> a.price < b.price? 1:-1);
+            cartCount(id) {
+                let count = 0;
+                for (let i = 0; i < this.cart.length; i++) {
+                    if (this.cart[i] === id) {
+                        count++;
+                    }
+                }
+                return count;
             },
         }
         });
