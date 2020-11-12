@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coursework 1</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="activities.js"></script>
+</head>
+<body>
+    <h1>After School Activities Catalog</h1>
+    <main id="app">
+        <sidebar>
+            <h2>Sort</h2>
+            <input type="radio" @click="sortPriceA"> Price Ascending <br>
+            <input type="radio" @click="sortPriceD">Price Descending
+        </sidebar>
+        <div v-if="showActivity">
+            <div v-for="activity in activities">
+                <img style="max-height: 15em" v-bind:src="activity.image"/>
+                <h2 v-text="activity.title"></h2>
+                <p v-html="activity.location"></p>
+                <p>Price: {{activity.price}}</p>
+                <p>Available stock: {{activity.spaces}}</p>
+                <span>
+                <span v-for="n in activity.rating"><i class="fas fa-star"></i></span>
+                <span v-for="n in 5-activity.rating"><i class="far fa-star"></i></span>
+                </span>
+                <button>Add To Cart</button>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            activities: activities,
+            cart: [],
+            showActivity: true,
+        },
+        methods: {
+            sortPriceA: function(){
+                this.activities.sort((a,b)=> a.price>b.price? 1:-1);
+            },
+            sortPriceD: function(){
+                this.activities.sort((a,b)=> a.price < b.price? 1:-1);
+            },
+        }
+        });
+</script>
+</html>
