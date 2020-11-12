@@ -28,7 +28,8 @@
                 <span v-for="n in activity.rating"><i class="fas fa-star"></i></span>
                 <span v-for="n in 5-activity.rating"><i class="far fa-star"></i></span>
                 </span>
-                <button>Add To Cart</button>
+                <button @click="addToCart(activity)">Add To Cart</button>
+                Only {{activity.spaces}} left!</span>
             </div>
         </div>
     </main>
@@ -42,6 +43,12 @@
             showActivity: true,
         },
         methods: {
+            addToCart(activity){
+                console.log(activity.id + " "+ activity.title+" was added to the cart!");//for debugging purposes
+                this.cart.push(activity.id);
+                activity.spaces-=1;
+            },
+            
             sortPriceA: function(){
                 this.activities.sort((a,b)=> a.price>b.price? 1:-1);
             },
