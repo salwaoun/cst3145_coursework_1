@@ -10,35 +10,42 @@
     <script src="activities.js"></script>
 </head>
 <body>
-    <h1>After School Activities Catalog</h1>
-    <main id="app" style="display: grid; grid-template-columns: 1fr 2fr;">
-        <div style="display:inline-block">
-            <h2>Sort By:</h2>
-            <input name="attribute" type="radio" @click=""><label>Title</label><br>
-            <input name="attribute" type="radio" @click=""> <label>Price</label><br>
-            <input name="attribute" type="radio" @click=""><label>Location</label><br>
-            <input name="attribute" type="radio" @click=""><label>Spaces</label><br><br>
-            <input name="direction" type="radio" @click=""><label>Ascending</label><br>
-            <input name="direction" type="radio" @click=""><label>Descending</label>
-        </div>
-        <div style="display: inline-block;" v-if="showActivity">
-            <div v-for="activity in activities">
-                <img style="max-height: 15em" v-bind:src="activity.image"/>
-                <h2 v-text="activity.title"></h2>
-                <p>Location: {{activity.location}}</p>
-                <p>Price: {{activity.price}} AED</p>
-                <p>Available spaces: {{activity.spaces-cartCount(activity.id)}}</p>
-                <span>
-                <span v-for="n in activity.rating"><i class="fas fa-star"></i></span>
-                <span v-for="n in 5-activity.rating"><i class="far fa-star"></i></span>
-                </span>
-                <button @click="addToCart(activity)" v-if="canAddToCart(activity)">Add To Cart</button>
-                <button disabled="disabled" v-else>Add To Cart</button>
-                <span v-if="activity.spaces === cartCount(activity.id)">All Out!</span>
-                <span v-else-if="activity.spaces - cartCount(activity.id) < 5">
-                Only {{activity.spaces - cartCount(activity.id)}} left!</span>
+    <main  id="app">
+        <header>
+            <h1>After School Activities Catalog</h1>
+            <button v-on:click="showCheckout">
+                {{cartItemCount}}
+                <span class="fas fa-cart-plus"></span> Checkout
+            </button>
+        </header>
+        <div style="display: grid; grid-template-columns: 1fr 2fr;">
+            <div style="display:inline-block">
+                <h2>Sort By:</h2>
+                <input name="attribute" type="radio" @click=""><label>Title</label><br>
+                <input name="attribute" type="radio" @click=""> <label>Price</label><br>
+                <input name="attribute" type="radio" @click=""><label>Location</label><br>
+                <input name="attribute" type="radio" @click=""><label>Spaces</label><br><br>
+                <input name="direction" type="radio" @click=""><label>Ascending</label><br>
+                <input name="direction" type="radio" @click=""><label>Descending</label>
             </div>
-        </div>
+            <div style="display: inline-block;" v-if="showActivity">
+                <div v-for="activity in activities">
+                    <img style="max-height: 15em" v-bind:src="activity.image"/>
+                    <h2 v-text="activity.title"></h2>
+                    <p>Location: {{activity.location}}</p>
+                    <p>Price: {{activity.price}} AED</p>
+                    <p>Available spaces: {{activity.spaces-cartCount(activity.id)}}</p>
+                    <span>
+                    <span v-for="n in activity.rating"><i class="fas fa-star"></i></span>
+                    <span v-for="n in 5-activity.rating"><i class="far fa-star"></i></span>
+                    </span>
+                    <button @click="addToCart(activity)" v-if="canAddToCart(activity)">Add To Cart</button>
+                    <button disabled="disabled" v-else>Add To Cart</button>
+                    <span v-if="activity.spaces === cartCount(activity.id)">All Out!</span>
+                    <span v-else-if="activity.spaces - cartCount(activity.id) < 5">
+                    Only {{activity.spaces - cartCount(activity.id)}} left!</span>
+                </div>
+            </div>
     </main>
 </body>
 <script>
@@ -65,6 +72,14 @@
                     }
                 }
                 return count;
+            },
+            showCheckout: function () {
+                this.showActivity = !this.showActivity;
+            },
+        },
+        computed: {
+            cartItemCount: function () {
+                return this.cart.length || '';
             },
         }
         });
