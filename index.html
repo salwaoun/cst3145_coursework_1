@@ -13,20 +13,20 @@
     <main  id="app">
         <header>
             <h1>After School Activities Catalog</h1>
-            <button v-on:click="showCheckout">
+            <button v-on:click="showCheckout" :disabled="canViewCart">
                 {{cartItemCount}}
-                <span class="fas fa-cart-plus"></span> Checkout
+                <span class="fas fa-cart-plus"></span> Go To Cart
             </button>
         </header>
         <div style="display: grid; grid-template-columns: 1fr 2fr;">
             <div style="display:inline-block">
                 <h2>Sort By:</h2>
-                <input name="attribute" type="radio" @click=""><label>Title</label><br>
-                <input name="attribute" type="radio" @click=""> <label>Price</label><br>
-                <input name="attribute" type="radio" @click=""><label>Location</label><br>
-                <input name="attribute" type="radio" @click=""><label>Spaces</label><br><br>
-                <input name="direction" type="radio" @click=""><label>Ascending</label><br>
-                <input name="direction" type="radio" @click=""><label>Descending</label>
+                <input name="attribute" value="title" type="radio" @click="sortedByTitleA"><label>Title</label><br>
+                <input name="attribute" value="price" type="radio" @click="sortedByPriceA"> <label>Price</label><br>
+                <input name="attribute" value="location" type="radio" @click="sortedByLocationA"><label>Location</label><br>
+                <input name="attribute" value="spaces" type="radio" @click="sortedBySpacesA"><label>Spaces</label><br><br>
+                <input name="direction" value=1 type="radio" @click="ascending()"><label>Ascending</label><br>
+                <input name="direction" value=-1 type="radio" @click="descending()"><label>Descending</label>
             </div>
             <div style="display: inline-block;" v-if="showActivity">
                 <div v-for="activity in activities">
@@ -46,6 +46,24 @@
                     Only {{activity.spaces - cartCount(activity.id)}} left!</span>
                 </div>
             </div>
+            <div v-else>
+                <h2>My Cart</h2>
+                <button v-on:click="showCheckout">Go To Products</button>
+                <div v-for="item in cart">
+                    <img style="max-height: 15em" v-bind:src="item.image"/>
+                    <h2 v-text="item.title"></h2>
+                    <p>Location: {{item.location}}</p>
+                    <p>Price: {{item.price}} AED</p>
+                    <span>
+                    <span v-for="n in item.rating"><i class="fas fa-star"></i></span>
+                    <span v-for="n in 5-item.rating"><i class="far fa-star"></i></span>
+                    </span>
+                    <button @click="removeItem(item,cart.indexOf(item))">remove</button>
+                </div>
+                <h2>Checkout</h2>
+                
+            </div>
+        </div>
     </main>
 </body>
 <script>
@@ -57,12 +75,19 @@
             showActivity: true,
         },
         methods: {
-            addToCart(activity){
-                console.log(activity.id + " "+ activity.title+" was added to the cart!");//for debugging purposes
-                this.cart.push(activity.id);
-            },
-            canAddToCart: function (activity) {
+            canAddToCart(activity) {
                 return activity.spaces > this.cartCount(activity.id);
+            },
+            addToCart(activity){
+                console.log(activity.title+" was added to the cart!");//for debugging purposes
+                this.cart.push(activity);
+                activity.spaces-=1;
+            },
+            removeItem(activity,index){
+                console.log("remove function started index: "+index);
+                this.cart.splice(index,1);
+                activity.spaces-=1;
+                console.log(activity.title+" was removed from the cart!");//for debugging purposes
             },
             cartCount(id) {
                 let count = 0;
@@ -73,14 +98,76 @@
                 }
                 return count;
             },
-            showCheckout: function () {
-                this.showActivity = !this.showActivity;
+            showCheckout(){
+                this.showActivity= !this.showActivity;
             },
+            ascending(){
+                var attribute=document.querySelector('input[name="attribute"]:checked').value;
+                console.log("The attributed being sorted: "+attribute);
+                if(attribute=="price"){
+                    this.sortedByPriceA();
+                };
+                if(attribute=="title"){
+                    this.sortedByTitleA();
+                };
+                if(attribute=="location"){
+                    this.sortedByLocationA();
+                };
+                if(attribute=="spaces"){
+                    this.sortedBySpacesA();
+                };
+            },
+            descending(){
+                var attribute=document.querySelector('input[name="attribute"]:checked').value;
+                console.log("The attributed being sorted: "+attribute);
+                if(attribute=="price"){
+                    this.sortedByPriceD();
+                };
+                if(attribute=="title"){
+                    this.sortedByTitleD();
+                };
+                if(attribute=="location"){
+                    this.sortedByLocationD();
+                };
+                if(attribute=="spaces"){
+                    this.sortedBySpacesD();
+                };
+            },
+            sortedByPriceA(){
+                this.activities.sort((a,b)=>((a.price < b.price) ? -1 : ((a.price > b.price) ? 1 : 0)));
+            },  
+            sortedByPriceD(){
+                this.activities.sort((a,b)=>((a.price > b.price) ? -1 : ((a.price < b.price) ? 1 : 0)));
+            }, 
+            sortedByTitleA(){
+                this.activities.sort((a,b)=>((a.title < b.title) ? -1 : ((a.title > b.title) ? 1 : 0)));
+            },  
+            sortedByTitleD(){
+                this.activities.sort((a,b)=>((a.title > b.title) ? -1 : ((a.title < b.title) ? 1 : 0)));
+            }, 
+            sortedByLocationA(){
+                this.activities.sort((a,b)=>((a.location < b.location) ? -1 : ((a.location > b.location) ? 1 : 0)));
+            },  
+            sortedByLocationD(){
+                this.activities.sort((a,b)=>((a.location > b.location) ? -1 : ((a.location < b.location) ? 1 : 0)));
+            },
+            sortedBySpacesA(){
+                this.activities.sort((a,b)=>((a.spaces < b.spaces) ? -1 : ((a.spaces > b.spaces) ? 1 : 0)));
+            },  
+            sortedBySpacesD(){
+                this.activities.sort((a,b)=>((a.spaces > b.spaces) ? -1 : ((a.spaces < b.spaces) ? 1 : 0)));
+            },  
         },
         computed: {
-            cartItemCount: function () {
-                return this.cart.length || '';
+            cartItemCount() {
+                return this.cart.length || "";
             },
+            canViewCart(){
+                return this.cart.length > 0 ? false : true;
+            },
+            
+            
+            
         }
         });
 </script>
