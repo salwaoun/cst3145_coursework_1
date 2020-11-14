@@ -21,12 +21,12 @@
         <div style="display: grid; grid-template-columns: 1fr 2fr;">
             <div style="display:inline-block">
                 <h2>Sort By:</h2>
-                <input name="attribute" value="title" type="radio" @click="sortedByTitleA"><label>Title</label><br>
-                <input name="attribute" value="price" type="radio" @click="sortedByPriceA"> <label>Price</label><br>
-                <input name="attribute" value="location" type="radio" @click="sortedByLocationA"><label>Location</label><br>
-                <input name="attribute" value="spaces" type="radio" @click="sortedBySpacesA"><label>Spaces</label><br><br>
-                <input name="direction" value=1 type="radio" @click="ascending()"><label>Ascending</label><br>
-                <input name="direction" value=-1 type="radio" @click="descending()"><label>Descending</label>
+                <input name="attribute" value="title" type="radio"><label>Title</label><br>
+                <input name="attribute" value="price" type="radio"> <label>Price</label><br>
+                <input name="attribute" value="location" type="radio"><label>Location</label><br>
+                <input name="attribute" value="spaces" type="radio"><label>Spaces</label><br><br>
+                <input name="direction" value=1 type="radio" @click="ascending"><label>Ascending</label><br>
+                <input name="direction" value=-1 type="radio" @click="descending"><label>Descending</label>
             </div>
             <div style="display: inline-block;" v-if="showActivity">
                 <div v-for="activity in activities">
@@ -55,8 +55,8 @@
                     <p>Location: {{item.location}}</p>
                     <p>Price: {{item.price}} AED</p>
                     <span>
-                    <span v-for="n in item.rating"><i class="fas fa-star"></i></span>
-                    <span v-for="n in 5-item.rating"><i class="far fa-star"></i></span>
+                    <span v-for="n in item.rating"><i class="fas fa-star" aria-required="true"></i></span>
+                    <span v-for="n in 5-item.rating"><i class="far fa-star" required></i></span>
                     </span>
                     <button @click="removeItem(item,cart.indexOf(item))">remove</button>
                 </div>
@@ -86,7 +86,7 @@
             removeItem(activity,index){
                 console.log("remove function started index: "+index);
                 this.cart.splice(index,1);
-                activity.spaces-=1;
+                activity.spaces+=1;
                 console.log(activity.title+" was removed from the cart!");//for debugging purposes
             },
             cartCount(id) {
@@ -104,36 +104,14 @@
             ascending(){
                 var attribute=document.querySelector('input[name="attribute"]:checked').value;
                 console.log("The attributed being sorted: "+attribute);
-                if(attribute=="price"){
-                    this.sortedByPriceA();
-                };
-                if(attribute=="title"){
-                    this.sortedByTitleA();
-                };
-                if(attribute=="location"){
-                    this.sortedByLocationA();
-                };
-                if(attribute=="spaces"){
-                    this.sortedBySpacesA();
-                };
+                this.activities.sort((a,b)=>(a[attribute] < b[attribute] ? -1 : a[attribute] > b[attribute] ? 1 : 0));
             },
             descending(){
                 var attribute=document.querySelector('input[name="attribute"]:checked').value;
                 console.log("The attributed being sorted: "+attribute);
-                if(attribute=="price"){
-                    this.sortedByPriceD();
-                };
-                if(attribute=="title"){
-                    this.sortedByTitleD();
-                };
-                if(attribute=="location"){
-                    this.sortedByLocationD();
-                };
-                if(attribute=="spaces"){
-                    this.sortedBySpacesD();
-                };
+                this.activities.sort((a,b)=>(a[attribute] > b[attribute] ? -1 : a[attribute] < b[attribute] ? 1 : 0));
             },
-            sortedByPriceA(){
+            /*sortedByPriceA(){
                 this.activities.sort((a,b)=>((a.price < b.price) ? -1 : ((a.price > b.price) ? 1 : 0)));
             },  
             sortedByPriceD(){
@@ -156,7 +134,7 @@
             },  
             sortedBySpacesD(){
                 this.activities.sort((a,b)=>((a.spaces > b.spaces) ? -1 : ((a.spaces < b.spaces) ? 1 : 0)));
-            },  
+            },  */
         },
         computed: {
             cartItemCount() {
