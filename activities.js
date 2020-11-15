@@ -5,7 +5,7 @@ let activities=[
     location: "Gym 02",
     price: 900,
     spaces: 5,
-    image: "images/gymnastics.png",
+    image: "https://images.unsplash.com/photo-1551855144-315149938d84?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
     rating: 3,
   },
   {
@@ -14,7 +14,7 @@ let activities=[
     location: "Hall 03",
     price: 1000,
     spaces: 5,
-    image: "images/dance.png",
+    image: "https://thumbs.dreamstime.com/b/ballet-dancers-lesson-flat-vector-illustration-little-ballerinas-practicing-dance-movements-cartoon-characters-cute-girls-170680902.jpg",
     rating: 3,
   },
   {
@@ -23,7 +23,7 @@ let activities=[
     location: "Classroom 101",
     price: 250,
     spaces: 5,
-    image: "images/cooking.png",
+    image: "https://cdn.dribbble.com/users/1206459/screenshots/12871536/media/ef10a60f1ea4ac83821bd18d1a652dde.png?compress=1&resize=400x300",
     rating: 4,
     },
     {
@@ -32,7 +32,7 @@ let activities=[
       location: "Hall 02",
       price: 430,
       spaces: 5,
-      image: "images/music.png",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQfy94xMTBNdwOSGsqtEXazpFLGJwEW9V758Q&usqp=CAU",
       rating: 2,
     },
     {
@@ -41,7 +41,7 @@ let activities=[
       location: "Classroom 05",
       price: 150,
       spaces: 5,
-      image: "images/painting.png",
+      image: "https://leverageedu.com/blog/wp-content/uploads/2019/11/Career-in-Painting.png",
       rating: 2,
     },
     {
@@ -50,7 +50,7 @@ let activities=[
       location: "Hall 04",
       price: 530,
       spaces: 5,
-      image: "images/photography.png",
+      image: "https://img.freepik.com/free-vector/photography-classes_1200-432.jpg?size=338&ext=jpg&ga=GA1.2.1599431207.1600819200",
       rating: 4,
       },
       {
@@ -59,7 +59,7 @@ let activities=[
         location: "Classroom 07",
         price: 880,
         spaces: 5,
-        image: "images/robotics.png",
+        image: "https://cdn6.f-cdn.com/contestentries/1389926/30692417/5b70f756e30cd_thumb900.jpg",
         rating: 4,
       },
       {
@@ -68,7 +68,7 @@ let activities=[
         location: "UAE",
         price: 400,
         spaces: 5,
-        image: "images/entrepreneurship.png",
+        image: "https://img.freepik.com/free-vector/people-characters-holding-creative-business-concept-icons_53876-43095.jpg?size=626&ext=jpg",
         rating: 3,
       },
       {
@@ -77,7 +77,7 @@ let activities=[
         location: "Swimming Pool",
         price: 570,
         spaces: 5,
-        image: "images/swimming.png",
+        image: "https://image.freepik.com/free-vector/isometric-public-swimming-pool-illustration_23-2148602651.jpg",
         rating: 4,
         },
         {
@@ -86,7 +86,7 @@ let activities=[
           location: "School's Backyard",
           price: 330,
           spaces: 5,
-          image: "images/gardening.png",
+          image: "https://image.freepik.com/free-vector/gardening-home-illustration_23-2148538437.jpg",
           rating: 1,
         },
 ]

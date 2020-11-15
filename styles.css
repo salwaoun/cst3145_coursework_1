@@ -1,10 +1,27 @@
 .activityCard{
-    border: 1px solid green;
-    transition: transform 0.9;
+   
+    transition: transform 0.9s;
 }
 .activityCard:hover{
-    transform: scale(1.5);
+    transform: scale(0.9);
     }
 .navbar-nav li{
-    padding: 0 45px;
+    padding: 0 35px;
+}
+h1{
+    font-size: 45px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600px;
+    letter-spacing: -0.2px;
+}
+.bg-grey {
+    background-color: #000000;
+}
+a img{
+    height:30px;
+
+}
+span i {
+    color:#EEB609;
+
 }
