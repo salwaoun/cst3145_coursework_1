@@ -1,6 +1,10 @@
 .activityCard{
+    border: 1px solid green;
     transition: transform 0.9;
 }
 .activityCard:hover{
     transform: scale(1.5);
     }
+.navbar-nav li{
+    padding: 0 45px;
+}
