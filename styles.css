@@ -1,0 +1,6 @@
+.activityCard{
+    transition: transform 0.9;
+}
+.activityCard:hover{
+    transform: scale(1.5);
+    }
