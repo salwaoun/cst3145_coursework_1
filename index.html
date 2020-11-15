@@ -58,24 +58,6 @@
                         </div>
                     </div>
                 </div>
-                <!--div class="row" v-for="activity in activities">
-                    <img class="col-md-4" style="max-height: 15em" v-bind:src="activity.image" />
-                    <div class="col-md-8">
-                        <h2 v-text="activity.title"></h2>
-                        <p>Location: {{activity.location}}</p>
-                        <p>Price: {{activity.price}} AED</p>
-                        <p>Available spaces: {{activity.spaces-cartCount(activity.id)}}</p>
-                        <span>
-                            <span v-for="n in activity.rating"><i class="fas fa-star"></i></span>
-                            <span v-for="n in 5-activity.rating"><i class="far fa-star"></i></span>
-                        </span>
-                        <button @click="addToCart(activity)" v-if="canAddToCart(activity)">Add To Cart</button>
-                        <button disabled="disabled" v-else>Add To Cart</button>
-                        <span v-if="activity.spaces === cartCount(activity.id)">All Out!</span>
-                        <span v-else-if="activity.spaces - cartCount(activity.id) < 5">
-                            Only {{activity.spaces - cartCount(activity.id)}} left!</span>
-                    </div>
-                </div-->
             </div>
         </div>
         <div v-else>
@@ -196,8 +178,6 @@
             numericName() {
                 console.log(/\d/.test(this.order.name));
                 return /\d/.test(this.order.name);
-                // console.log(this.order.name.replace(/[0-9]/g, ''));
-                //return this.order.name.replace(/[0-9]/g, '');
             }
         }
     });
